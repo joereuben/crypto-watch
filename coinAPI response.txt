@@ -1,0 +1,17 @@
+asset_id: "BTC"
+data_end: "2022-09-06"
+data_orderbook_end: "2022-09-06T00:00:00.0000000Z"
+data_orderbook_start: "2014-02-24T17:43:05.0000000Z"
+data_quote_end: "2022-09-06T00:00:00.0000000Z"
+data_quote_start: "2014-02-24T17:43:05.0000000Z"
+data_start: "2010-07-17"
+data_symbols_count: 112148
+data_trade_end: "2022-09-06T00:00:00.0000000Z"
+data_trade_start: "2010-07-17T23:09:17.0000000Z"
+id_icon: "4caf2b16-a017-4e26-a348-2cea69c34cba"
+name: "Bitcoin"
+price_usd: 19774.30091081837
+type_is_crypto: 1
+volume_1day_usd: 578228620195724.1
+volume_1hrs_usd: 12209794832391.82
+volume_1mth_usd: 363407310829195900000
