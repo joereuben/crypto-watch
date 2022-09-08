@@ -1,11 +1,16 @@
-import {useState} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import Assets from './Assets'
 const endPoint = "http://localhost:9000/api" //my node js back-end
+const currencyEndPoint = "http://localhost:9000/currency/" //my node js back-end
 
 function App() {
   const [allAssets, setAllAssets] = useState([])
   const [assets, setAssets] = useState([])
   const [search, setSearch] = useState("")
+  const [assetData, setAssetData] = useState({})
+  const [loading, setLoading] = useState(true)
+
+  
 
   const loadCrypto = async () => {
     try {
@@ -30,11 +35,11 @@ function App() {
     let text = e.target.value
     setSearch(text)
     if(!text.trim()){
-      console.log("empty")
+      
       setAssets(allAssets)
       return
     }
-    // console.log("change: "+search)
+    
     searchAssets()
   }
 
@@ -49,15 +54,64 @@ function App() {
     setAssets(searchResults)
   }
 
+  //get assets metadata (particularly logo)
+  const loadAssetData =  async () => {
+    
+    // console.log(Object.keys(assetData).length)
+    if(allAssets.length === 0 || !allAssets || Object.keys(assetData).length > 0) return
+
+    // console.log("loading assets")
+    let ids = ""
+    allAssets.map( (asset, key) => {
+      // console.log("key: a"+key)
+      if(key === 0) ids += asset.id
+      else ids += ","+ asset.id  // create a string of comma seperated IDs to send to api
+      return ""
+    })
+
+    let url = currencyEndPoint+ids
+    try {
+      let response = await fetch(url)
+      response = await response.json()
+      
+      setAssetData(response.data)
+      setLoading(false)
+      // console.log(response.data)
+      // console.log(assetData[1])
+      // console.log(Object.keys(assetData))
+    } catch (error) {
+      setLoading(false)
+      console.log("error: "+error)
+    }
+  }
+
+  useEffect(() => { 
+    
+    loadAssetData()
+  }, [allAssets]);
+
+  useEffect(() => {
+    loadCrypto()
+  }, []);
+
   return (
     <div className="container">
-      <h1>Cypto Watch</h1>
-      <button onClick={loadCrypto}>Fetch</button>
+      <h1>Crypto Watch</h1>
+      <h4>Track your Favourite Crypto Coins</h4>
+      {/* <button onClick={loadCrypto}>Fetch</button> */}
       <form action="" onSubmit={handleSubmit}>
-        <input type="search" placeholder='Search. BTC or Bitcoin' value={search} onChange={handleChange}/>
+        <input type="search" placeholder='Search e.g BTC or Bitcoin' value={search} onChange={handleChange}/>
+        <div>
+          Designed and developed by 
+          <a href="https://freecodecamp.org/reujoe/" rel='noopener noreferrer' target="_blank">Joseph Amofa</a> 
+        </div>
       </form> 
       <div className="display">
-        <Assets assets={assets}/>
+        {!loading && <Assets assets={assets} assetData={assetData}/>}
+        
+      </div>
+      <div className='center'>
+        {loading && <div className="loader"></div>}
       </div>
     </div>
   );

@@ -14,6 +14,9 @@ code {
     monospace;
 }
 
+h1, h4{
+  margin: 10px 0;
+}
 .container{
   /* max-width: 700px; */
   text-align: center;
@@ -32,17 +35,20 @@ code {
 }
 
 .display{
-  /* display: grid;
-  grid-template-columns: auto; */
-  /* min-width: 700px; */
+  
+  margin: 20px 0;
 }
 
 .assets{
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto;
   justify-content: space-around;
-  gap: 10px 30px;
+  gap: 20px 30px;
   text-align: start;
+}
+.center{
+  display: flex;
+  justify-content: center;
 }
 
 .coin-name{
@@ -62,5 +68,41 @@ code {
 }
 
 input{
-  padding: 0pt;
+  padding: 7px 15px;
+  border-radius: 15px;
+  border: 1px solid rgb(196, 194, 194);
+  min-width: 300px;
+  font-family: 'Poppins';
+}
+input:focus{
+  outline: none;
+  border: 1px solid rgb(0, 255, 179);
+}
+
+.ic_logo{
+  max-width: 30px;
+}
+.primary{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.assets > div{
+  display: flex;
+  align-items: center;
+}
+
+.loader {
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

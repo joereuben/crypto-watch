@@ -1,27 +1,12 @@
-import React, {useEffect} from 'react'
-const endPoint = "http://localhost:9000/currency/" //my node js back-end
+import React from 'react'
 
-export default function Crypto({ asset }) {
+export default function Crypto({ asset, logo }) {
     let { id, name, symbol, quote } = asset
 
-   const fetchMetadata = async () => {
-    try {
-        let response = await fetch(endPoint+id)
-        response = await response.json()
-        console.log(response)
-    } catch (error) {
-        console.log(error)
-    }
-   }
     var formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
     });
-
-    useEffect(() => {
-        if(id === 1)
-            fetchMetadata()
-    }, []);
 
     let price = formatter.format(quote.USD.price.toFixed(2))
     let percent_change_1h = quote.USD.percent_change_1h.toFixed(2)
@@ -42,7 +27,13 @@ export default function Crypto({ asset }) {
     return(
         <>
         <div className=''>{id}</div>
-        <div ><span className='coin-name'>{name}</span> <span>({symbol})</span></div>
+        <div className='primary'>
+            <img src={logo} alt="" className='ic_logo' />
+            <div>
+                <span className='coin-name'>{name}</span> <span>({symbol})</span>
+            </div>
+            
+        </div>
         <div className='price'>{price}</div>
         <div className={oneH}>{percent_change_1h}</div>
         <div className={twoFourH}>{percent_change_24h}</div>
