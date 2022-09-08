@@ -36,11 +36,13 @@ code {
   grid-template-columns: auto; */
   /* min-width: 700px; */
 }
+
 .assets{
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
   justify-content: space-around;
   gap: 10px 30px;
+  text-align: start;
 }
 
 .coin-name{
@@ -49,4 +51,16 @@ code {
 }
 .price{
   text-align: start;
+}
+
+.pc{
+  color: rgb(3, 173, 3);
+}
+
+.neg{
+  color: red;
+}
+
+input{
+  padding: 0pt;
 }

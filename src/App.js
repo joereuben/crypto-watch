@@ -1,23 +1,22 @@
 import {useState} from 'react'
-import Crypto from './Crypto'
 import Assets from './Assets'
-// https://docs.coinapi.io
-const endPoint = "https://rest.coinapi.io/"
-const API_KEY = "7FD1289F-D8FF-424D-BF6B-86B925CBEB98"
-let allAssets = [];
+const endPoint = "http://localhost:9000/api" //my node js back-end
 
 function App() {
+  const [allAssets, setAllAssets] = useState([])
   const [assets, setAssets] = useState([])
   const [search, setSearch] = useState("")
 
   const loadCrypto = async () => {
     try {
-      let url = endPoint + "v1/assets/?apikey="+API_KEY
-      let response = await fetch(url)
-      allAssets = await response.json()
-      setTopAssets()
-      // allAssets = response
-      console.log(allAssets.length)
+      let url = endPoint
+      let response = await fetch(url, {headers:{'Access-Control-Allow-Origin': '*'}})
+      // console.log(response)
+      response = await response.json()
+      setAllAssets(response.data)
+      setAssets(response.data)
+     
+      // console.log(JSON.stringify(assets[0]))
     } catch (error) {
       console.log(error)
     }
@@ -28,9 +27,11 @@ function App() {
   }
 
   const handleChange = (e) => {
-    setSearch(e.target.value)
-    if(!search){
-      setTopAssets()
+    let text = e.target.value
+    setSearch(text)
+    if(!text.trim()){
+      console.log("empty")
+      setAssets(allAssets)
       return
     }
     // console.log("change: "+search)
@@ -39,23 +40,13 @@ function App() {
 
   const searchAssets = () => {
     if(allAssets.length === 0) return
-    let searchResults = assets.filter( asset => {
-      // console.log(asset.name)
-      let i = asset.name.indexOf(search)
-      if(i < 0) i = asset.asset_id.indexOf(search)
-      return i > 0
+    var regex = new RegExp(search, "i")
+    let searchResults = allAssets.filter( asset => {      
+      let i = asset.name.search(regex)
+      return i >= 0
     })
+    // console.log(searchResults)
     setAssets(searchResults)
-  }
-
-  const setTopAssets = () => {
-    if(allAssets.length === 0) return
-
-    let arr = []
-    for (let index = 0; index < 20; index++) {// just 20 for now
-      arr.push(allAssets[index])
-    }
-    setAssets(arr)
   }
 
   return (
@@ -66,19 +57,8 @@ function App() {
         <input type="search" placeholder='Search. BTC or Bitcoin' value={search} onChange={handleChange}/>
       </form> 
       <div className="display">
-
-        {/* <div className="box">
-          <span>Coin</span>
-          <span>Price</span>
-          <span>Daily Change</span>
-          <span>Market Cap</span>
-        </div> */}
-        {/* {assets.map( asset => {
-          return <Crypto asset={asset}/>
-        })} */}
         <Assets assets={assets}/>
       </div>
-     
     </div>
   );
 }
