@@ -96,7 +96,7 @@ function App() {
         <input type="search" placeholder='Search e.g BTC or Bitcoin' value={search} onChange={handleChange}/>
         <div>
           Designed and developed by 
-          <a href="https://freecodecamp.org/reujoe/" rel='noopener noreferrer' target="_blank">Joseph Amofa</a> 
+          <a href="https://josephreuben.tech" rel='noopener noreferrer' target="_blank">Joseph Amofa</a> 
         </div>
       </form> 
       <div className="display">
