@@ -1,7 +1,7 @@
 import {useState, useEffect, useCallback} from 'react'
 import Assets from './Assets'
-const endPoint = "http://localhost:9000/api" //my node js back-end
-const currencyEndPoint = "http://localhost:9000/currency/" //my node js back-end
+const endPoint = "https://crypto-watch-api.onrender.com/api" //my node js back-end
+const currencyEndPoint = "https://crypto-watch-api.onrender.com/currency/" //my node js back-end
 
 function App() {
   const [allAssets, setAllAssets] = useState([])
