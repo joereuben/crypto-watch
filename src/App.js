@@ -10,8 +10,6 @@ function App() {
   const [assetData, setAssetData] = useState({})
   const [loading, setLoading] = useState(true)
 
-  
-
   const loadCrypto = async () => {
     try {
       let url = endPoint
@@ -57,13 +55,10 @@ function App() {
   //get assets metadata (particularly logo)
   const loadAssetData =  async () => {
     
-    // console.log(Object.keys(assetData).length)
     if(allAssets.length === 0 || !allAssets || Object.keys(assetData).length > 0) return
 
-    // console.log("loading assets")
     let ids = ""
     allAssets.map( (asset, key) => {
-      // console.log("key: a"+key)
       if(key === 0) ids += asset.id
       else ids += ","+ asset.id  // create a string of comma seperated IDs to send to api
       return ""
@@ -76,9 +71,7 @@ function App() {
       
       setAssetData(response.data)
       setLoading(false)
-      // console.log(response.data)
-      // console.log(assetData[1])
-      // console.log(Object.keys(assetData))
+     
     } catch (error) {
       setLoading(false)
       console.log("error: "+error)
