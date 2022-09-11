@@ -95,8 +95,9 @@ function App() {
       <form action="" onSubmit={handleSubmit}>
         <input type="search" placeholder='Search e.g BTC or Bitcoin' value={search} onChange={handleChange}/>
         <div>
-          Designed and developed by <br />
-          <a href="https://freecodecamp.org/reujoe" rel='noopener noreferrer' target="_blank">Joseph Amofa</a> 
+          <code>
+            Designed and developed by <a href="https://freecodecamp.org/reujoe" rel='noopener noreferrer' target="_blank">Joseph Amofa</a> 
+          </code>
         </div>
       </form> 
       <div className="display">
